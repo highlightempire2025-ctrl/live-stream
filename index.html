@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Basketball Stream</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- hls.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 20px;
+      padding: 12px;
+    }
+
+    video {
+      width: 100%;
+      max-height: 100vh;
+      background: #000;
+      margin-top: 10px;
+    }
+
+    .note {
+      font-size: 13px;
+      opacity: 0.8;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔴 Live Basketball Stream</h1>
+
+  <video id="video" controls playsinline></video>
+
+  <div class="note">
+    Press ▶️ if the video doesn't start automatically
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+
+    const videoSrc = "https://edg02.smytdryt.live/282352108_channel2_hd/playlist.m3u8?match_id=13786587&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767294709&key=VTJGc2RHVmtYMStacGNaVGlubkt2SklnK0tKL1N3SkZzME9NSHBKUlhJamZXaXpWbGkzNEgxOCtMTzl0R3ZPOXowc2MzT0FqbGVTMHZ2bmRlSW9yL21Td2xZYUIzYlExNGlWOWwvRjgzZVY4U1JFNGNpMG53WGVTSDJlejIrYUx0OGJsUmkxVHpJcEdtSEhqY0RwZUNlNW5IRUZ4WWMvb3JYektIZGxYMkwzQWc2OFpnL3dhclZqTTlWNG14TFQv";
+
+    // Use hls.js to play HLS on browsers
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    }
+  </script>
+
+</body>
+</html>
