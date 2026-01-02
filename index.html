@@ -1,75 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Basketball Stream</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- hls.js -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 20px;
-      padding: 12px;
-    }
-
-    video {
-      width: 100%;
-      max-height: 100vh;
-      background: #000;
-      margin-top: 10px;
-    }
-
-    .note {
-      font-size: 13px;
-      opacity: 0.8;
-      padding: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Sports HD | Streaming Service</title>
+    <style>
+        body { background: #0b0e11; color: #ffffff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; text-align: center; }
+        .nav-bar { background: #151a21; padding: 20px; border-bottom: 3px solid #f0b90b; }
+        .server-list { margin: 20px 0; }
+        .btn-server { 
+            background: #f0b90b; color: #000; border: none; padding: 12px 25px; 
+            margin: 5px; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-server:hover { background: #d4a308; transform: scale(1.05); }
+        .video-container { position: relative; width: 100%; max-width: 960px; margin: auto; background: #000; height: 540px; border: 1px solid #2d333b; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        iframe { width: 100%; height: 100%; border: none; }
+        .ads-link { background: #2ebd85; display: inline-block; width: auto; min-width: 300px; margin: 15px auto; text-decoration: none; color: white; padding: 12px; border-radius: 4px; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-  <h1>🔴 LIVE STREAM 🔴</h1>
+    <div class="nav-bar">
+        <h1>LIVE HD STREAMING</h1>
+    </div>
 
-  <video id="video" controls playsinline></video>
+    <a href="YOUR_ADSTERRA_DIRECT_LINK" target="_blank" class="ads-link">▶ CLICK HERE TO UNLOCK HD PLAYER ◀</a>
 
-  <div class="note">
-    Press ▶️ if the video doesn't start automatically
+    <div class="server-list">
+        <button class="btn-server" onclick="play('https://imgarena-streams-prod-ll-eu-west-1.akamaized.net/out/v1/stream-27/493210-456299/493210-456299/hdntl=exp=1767471953~acl=%2fout%2fv1%2fstream-27%2f493210-456299%2f493210-456299%2f*~id=5d5a2641-4c8e-4b2b-92ff-1fc78944cd87~data=hdntl~hmac=4bf568dfc5be1baa057a7d03f7d7d059d9038eced98402532a42c5700384210b/playlist_1.m3u8?aws.manifestsettings=manifest_window_seconds:6')">SERVER 1 (HD)</button>
+        
+        <button class="btn-server" onclick="play('رابط_سيرفر_ثاني_هنا')">SERVER 2 (Backup)</button>
+    </div>
 
-                  🚨 LIVE STREAM 🚨 The Ultimate Home for NBA Fans! 🏀🔥
+    <div class="video-container">
+        <iframe id="videoPlayer" src="https://hlsplayer.net/embed?url=https://imgarena-streams-prod-ll-eu-west-1.akamaized.net/out/v1/stream-27/493210-456299/493210-456299/hdntl=exp=1767471953~acl=%2fout%2fv1%2fstream-27%2f493210-456299%2f493210-456299%2f*~id=5d5a2641-4c8e-4b2b-92ff-1fc78944cd87~data=hdntl~hmac=4bf568dfc5be1baa057a7d03f7d7d059d9038eced98402532a42c5700384210b/playlist_1.m3u8?aws.manifestsettings=manifest_window_seconds:6" allowfullscreen></iframe>
+    </div>
 
-📺 FULL GAME Live Streams (No Lag) 🎥 Daily High-Definition Highlights ⚡ Instant 
-  </div>
+    <script>
+        function play(url) {
+            document.getElementById('videoPlayer').src = 'https://hlsplayer.net/embed?url=' + url;
+        }
+    </script>
 
-  <script>
-    const video = document.getElementById('video');
-
-    const videoSrc = "https://imgarena-streams-prod-ll-eu-west-1.akamaized.net/out/v1/stream-27/493210-456299/493210-456299/hdntl=exp=1767470586~acl=%2fout%2fv1%2fstream-27%2f493210-456299%2f493210-456299%2f*~id=5718b010-9af0-43b2-84f9-bda0349792f8~data=hdntl~hmac=57ac2264380c0a38dcc28f59c6e6944b2155bdc19237312e77742dcae7113285/playlist_1.m3u8?aws.manifestsettings=manifest_window_seconds:6";
-
-    // Use hls.js to play HLS on browsers
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
-  </script>
+    <div style="margin-top: 25px; color: #848e9c; font-size: 13px;">
+        <p>If the stream freezes, please try Server 2 or refresh the page.</p>
+    </div>
 
 </body>
-
 </html>
-
-
-
-
-
