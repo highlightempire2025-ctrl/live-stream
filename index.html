@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Live HD Streaming</title>
+    <title>PREMIUM HD | LIVE STREAM</title>
     
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     
     <style>
         :root {
-            --accent-color: #a349a4; 
-            --bg-dark: #080808;
-            --card-bg: #121212;
-            --btn-grad: linear-gradient(145deg, #a349a4, #7d2d7d);
+            --glow: #a349a4; 
+            --dark-bg: #050505;
+            --card: #111111;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -27,162 +26,120 @@
             min-height: 100vh;
         }
 
-        .navbar {
+        .header {
             width: 100%;
-            background: rgba(18, 18, 18, 0.95);
-            padding: 20px 0;
+            padding: 25px 0;
+            background: #111;
             text-align: center;
-            border-bottom: 2px solid var(--accent-color);
-            box-shadow: 0 4px 20px rgba(163, 73, 164, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 2px solid var(--glow);
+            box-shadow: 0 0 20px rgba(163, 73, 164, 0.3);
         }
 
-        .navbar h1 {
+        .header h1 {
             margin: 0;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(to right, #fff, var(--accent-color));
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, var(--glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .promo-btn {
+        .ad-btn {
             margin: 25px 0;
-            background: #ff4757;
+            background: linear-gradient(90deg, #ff4757, #ff6b81);
             color: white;
-            padding: 14px 35px;
+            padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 14px;
-            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
             animation: pulse 2s infinite;
-            display: inline-block;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
 
-        .player-frame {
+        .player-box {
             width: 95%;
-            max-width: 950px;
+            max-width: 900px;
             background: #000;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid #222;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
 
-        #player {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-        }
+        #player { width: 100%; aspect-ratio: 16 / 9; }
 
-        .server-section {
-            margin: 30px 0;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .btn-container { margin: 30px 0; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        .btn-server {
-            background: var(--card-bg);
+        .btn {
+            background: var(--card);
             color: white;
             border: 1px solid #333;
-            padding: 12px 28px;
+            padding: 12px 30px;
             border-radius: 8px;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
+            font-weight: 600;
+            transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .btn-server:hover {
-            border-color: var(--accent-color);
-            background: var(--btn-grad);
-            box-shadow: 0 0 15px var(--accent-color);
-            transform: translateY(-3px);
-        }
+        .btn:hover { border-color: var(--glow); background: var(--glow); box-shadow: 0 0 15px var(--glow); }
 
-        .dot { height: 8px; width: 8px; background-color: #2ed573; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #2ed573; }
+        .dot { height: 10px; width: 10px; background: #2ed573; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #2ed573; }
 
-        .footer {
-            margin-top: auto;
-            padding: 40px 20px;
-            color: #555;
-            font-size: 12px;
-            text-align: center;
-        }
+        .footer { margin-top: auto; padding: 30px; color: #444; font-size: 12px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
+    <div class="header">
         <h1>✪ PREMIUM HD STREAMING ✪</h1>
     </div>
 
-    <a href="YOUR_ADSTERRA_LINK" target="_blank" class="promo-btn">▶ UNLOCK ULTRA HD PLAYER ◀</a>
+    <a href="YOUR_ADSTERRA_LINK" target="_blank" class="ad-btn">▶ UNLOCK HD PLAYER ◀</a>
 
-    <div class="player-frame">
+    <div class="player-box">
         <div id="player"></div>
     </div>
 
-    <div class="server-section">
-        <button class="btn-server" onclick="decodeAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi')">
-            <span class="dot"></span> SERVER 1 (HD AUTO)
+    <div class="btn-container">
+        <button class="btn" onclick="securePlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi')">
+            <span class="dot"></span> SERVER 1 (HD)
         </button>
-        <button class="btn-server" onclick="decodeAndPlay('YOUR_SECOND_ENCRYPTED_LINK')">
-            <span class="dot" style="background-color: #ffa500; box-shadow: 0 0 10px #ffa500;"></span> SERVER 2 (BACKUP)
+        <button class="btn" onclick="location.reload()">
+            <span class="dot" style="background: #ffa500; box-shadow: 0 0 8px #ffa500;"></span> RELOAD PLAYER
         </button>
     </div>
 
     <div class="footer">
-        <p>If the stream freezes, switch servers or refresh the page.</p>
         <p>© 2026 ProStream Experience. All rights reserved.</p>
     </div>
 
     <script>
-        // Clappr Player Engine Setup
         var player = new Clappr.Player({
             parentId: '#player',
             width: '100%',
             height: '100%',
-            autoPlay: true, // Auto-starts the video
-            mute: true,     // Most browsers require mute for auto-play
-            mimeType: 'application/x-mpegURL',
-            mediacontrol: {seekbar: "#a349a4", buttons: "#fff"},
-            playback: {
-                hlsjsConfig: {
-                    xhrSetup: function(xhr) {
-                        xhr.withCredentials = false;
-                    }
-                }
-            }
+            autoPlay: true,
+            mute: true,
+            mediacontrol: {seekbar: "var(--glow)", buttons: "#fff"},
+            playback: { hlsjsConfig: { xhrSetup: function(xhr) { xhr.withCredentials = false; } } }
         });
 
-        // Encryption decoder and stream loader
-        function decodeAndPlay(encodedUrl) {
+        function securePlay(encodedUrl) {
             try {
-                const decodedUrl = atob(encodedUrl);
-                player.load(decodedUrl);
+                player.load(atob(encodedUrl));
                 player.play();
             } catch (e) {
-                console.error("Stream initialization failed.");
+                console.error("Stream Error");
             }
         }
 
-        // Auto-run the stream on page load
         window.onload = function() {
-            decodeAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi');
+            securePlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi');
         };
     </script>
 </body>
