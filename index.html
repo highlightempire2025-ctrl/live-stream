@@ -4,112 +4,174 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PREMIUM HD STREAMING</title>
+    <title>Ultimate Live Streaming | HD</title>
     
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     
     <style>
+        /* CSS Variables for easy color changes */
         :root {
-            --primary: #a349a4;
-            --bg: #050505;
+            --accent-color: #a349a4; /* Purple Accent */
+            --bg-dark: #080808;
+            --card-bg: #121212;
+            --btn-grad: linear-gradient(145deg, #a349a4, #7d2d7d);
         }
 
         body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .header {
+        /* Top Navigation Bar */
+        .navbar {
             width: 100%;
+            background: rgba(18, 18, 18, 0.95);
             padding: 20px 0;
-            background: #111;
             text-align: center;
-            border-bottom: 2px solid var(--primary);
-            box-shadow: 0 4px 15px rgba(163, 73, 164, 0.3);
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 4px 20px rgba(163, 73, 164, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .player-container {
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Adsterra Floating Button */
+        .promo-btn {
+            margin: 25px 0;
+            background: #ff4757;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
+            animation: pulse 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Player Container */
+        .player-frame {
             width: 95%;
-            max-width: 900px;
-            margin: 30px auto;
-            border-radius: 12px;
+            max-width: 950px;
+            background: #000;
+            border-radius: 15px;
             overflow: hidden;
             border: 1px solid #222;
-            background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
 
-        #player { width: 100%; aspect-ratio: 16 / 9; }
+        #player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
 
-        .controls { margin-bottom: 40px; }
+        /* Professional Server Buttons */
+        .server-section {
+            margin: 30px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-        .btn-refresh {
-            background: var(--primary);
+        .btn-server {
+            background: var(--card-bg);
             color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
+            border: 1px solid #333;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-refresh:hover { opacity: 0.8; transform: translateY(-2px); }
+        .btn-server:hover {
+            border-color: var(--accent-color);
+            background: var(--btn-grad);
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .dot { height: 8px; width: 8px; background-color: #2ed573; border-radius: 50%; display: inline-block; }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            color: #555;
+            font-size: 12px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>✪ PREMIUM HD STREAMING ✪</h1>
+    <div class="navbar">
+        <h1>✪ PREMIUM HD STREAM ✪</h1>
     </div>
 
-    <div class="player-container">
+    <a href="#" target="_blank" class="promo-btn">▶ UNLOCK ULTRA HD PLAYER ◀</a>
+
+    <div class="player-frame">
         <div id="player"></div>
     </div>
 
-    <div class="controls">
-        <button class="btn-refresh" onclick="location.reload()">RELOAD STREAM</button>
+    <div class="server-section">
+        <button class="btn-server" onclick="loadSource('رابط_المباراة_هنا')">
+            <span class="dot"></span> SERVER 1 (AUTO)
+        </button>
+        <button class="btn-server" onclick="loadSource('رابط_بديل_هنا')">
+            <span class="dot" style="background-color: #ffa500;"></span> SERVER 2 (BACKUP)
+        </button>
+    </div>
+
+    <div class="footer">
+        <p>If the stream freezes, try switching servers or refresh the browser.</p>
+        <p>© 2026 Live Sports Experience. All rights reserved.</p>
     </div>
 
     <script>
-        // Professional Player Logic with Network Recovery
+        // Setup Clappr Player
         var player = new Clappr.Player({
+            source: 'https://edg11.smytdryt.live/Roland-Garros-Court-13_hd/playlist.m3u8?match_id=13790735&s_id=1&t_id=3&stats=statsgoogstreams.com&timestamp=1767386003&key=VTJGc2RHVmtYMThmSlBSOU05bjhZOGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi',
             parentId: '#player',
             width: '100%',
             height: '100%',
-            autoPlay: true,
-            mute: true,
-            mediacontrol: {seekbar: "#a349a4", buttons: "#fff"},
-            playback: {
-                hlsjsConfig: {
-                    // This part fixes most Network/Manifest Errors
-                    enableWorker: true,
-                    maxBufferSize: 0,
-                    maxBufferLength: 10,
-                    liveSyncDurationCount: 3,
-                    manifestLoadingMaxRetry: 10,
-                    manifestLoadingRetryDelay: 1000
-                }
-            }
+            autoPlay: false,
+            mimeType: 'application/x-mpegURL',
+            mediacontrol: {seekbar: "#a349a4", buttons: "#fff"}
         });
 
-        function startStream(encodedUrl) {
-            try {
-                player.load(atob(encodedUrl));
-                player.play();
-            } catch (e) {
-                console.error("Invalid Source - Link might be expired.");
-            }
+        function loadSource(url) {
+            player.load(url);
+            player.play();
         }
-
-        // AUTO-LOAD ENCRYPTED LINK
-        window.onload = function() {
-            startStream('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi');
-        };
     </script>
+
 </body>
 </html>
