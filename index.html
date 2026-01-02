@@ -4,228 +4,61 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRA HD SPORTS STREAM | SECURE ACCESS</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>ULTRA HD SPORTS | SECURE PLAYER</title>
     
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/clappr-level-selector@latest/dist/level-selector.min.js"></script>
+
     <style>
-        /* CSS Variables for Global Styling */
-        :root {
-            --primary-glow: #6a0572; /* Deep Purple Glow */
-            --secondary-accent: #a349a4; /* Lighter Purple */
-            --bg-deep-dark: #000000;
-            --bg-card: #0d0d0d;
-            --text-light: #e0e0e0;
-            --text-muted: #888888;
-            --button-hover-grad: linear-gradient(135deg, #7d2d7d, #a349a4);
-        }
-
-        /* Base Styles */
-        body {
-            background-color: var(--bg-deep-dark);
-            color: var(--text-light);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
-        /* Navbar - Top Bar */
-        .navbar {
-            width: 100%;
-            background: rgba(5, 5, 5, 0.98); /* Slightly transparent dark */
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 3px solid var(--primary-glow);
-            box-shadow: 0 5px 25px rgba(106, 5, 114, 0.4); /* Stronger glow effect */
-            position: sticky;
-            top: 0;
-            z-index: 1000; /* Ensure it stays on top */
-        }
-
-        .navbar h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            background: linear-gradient(45deg, #ffffff, var(--secondary-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        /* Adsterra Call to Action Button */
-        .cta-button {
-            margin: 30px 0;
-            background: linear-gradient(90deg, #ff6b6b, #ee5253); /* Vibrant Red Gradient */
-            color: white;
-            padding: 15px 45px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
-            animation: cta-pulse 2s infinite ease-in-out; /* Smooth pulse effect */
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 40px rgba(255, 107, 107, 0.8);
-        }
-
-        @keyframes cta-pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
-        /* Player Container */
-        .player-area {
-            width: 95%;
-            max-width: 1000px;
-            background: var(--bg-card);
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid #222;
-            box-shadow: 0 15px 60px rgba(0,0,0,0.7); /* Deep shadow */
-        }
-
-        #player {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
-        }
-
-        /* Server Control Buttons */
-        .server-controls {
-            margin: 35px 0;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-action {
-            background: var(--bg-card);
-            color: var(--text-light);
-            border: 1px solid var(--primary-glow);
-            padding: 14px 30px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .btn-action:hover {
-            border-color: var(--secondary-accent);
-            background: var(--button-hover-grad);
-            box-shadow: 0 0 25px var(--secondary-accent);
-            transform: translateY(-5px) scale(1.02);
-            color: #fff;
-        }
-
-        .status-light {
-            height: 10px;
-            width: 10px;
-            background-color: #2ed573; /* Green for active */
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 8px #2ed573; /* Glow effect for status light */
-        }
-
-        /* Footer Section */
-        .footer {
-            margin-top: auto; /* Pushes footer to bottom */
-            padding: 30px 20px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            text-align: center;
-            width: 100%;
-            background-color: rgba(5, 5, 5, 0.9);
-            border-top: 1px solid #1a1a1a;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .navbar h1 { font-size: 1.4rem; letter-spacing: 2px; }
-            .cta-button { padding: 12px 30px; font-size: 1rem; }
-            .btn-action { padding: 10px 20px; font-size: 0.9rem; }
-        }
+        :root { --p-glow: #a349a4; --dark: #000; }
+        body { background: var(--dark); color: white; font-family: 'Poppins', sans-serif; margin: 0; text-align: center; }
+        .nav { padding: 20px; border-bottom: 3px solid var(--p-glow); box-shadow: 0 0 20px rgba(163, 73, 164, 0.4); }
+        .player-wrapper { width: 95%; max-width: 950px; margin: 25px auto; border-radius: 15px; overflow: hidden; border: 1px solid #222; }
+        #player { width: 100%; aspect-ratio: 16/9; }
+        .btn { background: #111; color: white; border: 1px solid var(--p-glow); padding: 12px 25px; border-radius: 8px; cursor: pointer; margin: 10px; font-weight: bold; }
+        .btn:hover { background: var(--p-glow); box-shadow: 0 0 15px var(--p-glow); }
+        .error-msg { color: #ff4757; font-size: 13px; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <h1>✪ ULTIMATE LIVE SPORTS HD ✪</h1>
-    </div>
+    <div class="nav"><h1>✪ LIVE HD STREAM ✪</h1></div>
 
-    <a href="YOUR_ADSTERRA_DIRECT_LINK_HERE" target="_blank" class="cta-button">
-        ▶ UNLOCK ULTRA HD PLAYER & ADS FREE ◀
-    </a>
-
-    <div class="player-area">
+    <div class="player-wrapper">
         <div id="player"></div>
     </div>
 
-    <div class="server-controls">
-        <button class="btn-action" onclick="unlockAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi')">
-            <span class="status-light"></span> MAIN SERVER (HD)
-        </button>
-        <button class="btn-action" onclick="unlockAndPlay('YOUR_ENCODED_BACKUP_STREAM_HERE')">
-            <span class="status-light" style="background-color: #ffcc00; box-shadow: 0 0 8px #ffcc00;"></span> BACKUP SERVER (SD)
-        </button>
-    </div>
+    <div id="errorMessage" class="error-msg">Stream Link Expired. Please update the source.</div>
 
-    <div class="footer">
-        <p>If the stream encounters issues, please try another server or refresh the page.</p>
-        <p>© 2026 Ultimate Stream Experience. All Rights Reserved.</p>
+    <div class="controls">
+        <button class="btn" onclick="updateAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi')">
+            REFRESH SERVER 1
+        </button>
     </div>
 
     <script>
-        // Clappr Player Initialization
         var player = new Clappr.Player({
-            // The source will be loaded dynamically by unlockAndPlay function
             parentId: '#player',
-            width: '100%',
-            height: '100%',
-            autoPlay: false,
-            // Custom media control colors for a consistent theme
-            mediacontrol: {
-                seekbar: "var(--primary-glow)",
-                buttons: "#ffffff"
-            }
+            width: '100%', height: '100%',
+            plugins: [LevelSelector],
+            playback: { hlsjsConfig: { xhrSetup: function(xhr) { xhr.withCredentials = false; } } }
         });
 
-        // Function to decode Base64 URL and load it into the player
-        function unlockAndPlay(encodedUrl) {
+        function updateAndPlay(encodedUrl) {
             try {
                 const decodedUrl = atob(encodedUrl);
                 player.load(decodedUrl);
                 player.play();
-                // Optional: Change button styles to indicate active server
-                // Example: document.querySelector('.btn-action.active').classList.remove('active');
-                // this.classList.add('active');
+                document.getElementById('errorMessage').style.display = 'none';
             } catch (e) {
-                alert("Error loading stream. The stream might be offline or requires an update.");
-                console.error("Decoding error or stream issue:", e);
+                document.getElementById('errorMessage').style.display = 'block';
             }
         }
 
-        // Auto-play initial stream on page load for better UX (optional, can be removed)
-        // You can comment out or remove this line if you want users to explicitly click a button
-        document.addEventListener('DOMContentLoaded', () => {
-            // Automatically play the main server stream after page loads
-            unlockAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi');
-        });
+        // محاولة التشغيل التلقائي عند التحميل
+        window.onload = function() {
+            updateAndPlay('aHR0cHM6Ly9lZGcxMS5zbXl0ZHJ5dC5saXZlL1JvbGFuZC1HYXJyb3MtQ291cnQtMTNfaGQvcGxheWxpc3QubTN1OD9tYXRjaF9pZD0xMzc5MDczNSZzX2lkPTEmdF9pZD0zJnN0YXRzPXN0YXRzZ29vZ3N0cmVhbXMuY29tJnRpbWVzdGFtcD0xNzY3Mzg2MDAzJmtleT1WVEpGYzVSR1ZrdFlNVGhmSlBST1VUMWpPRGdmWHBZT3pzVFJNV1lON0hwOGJMcTkva1BJQjFFS3F4Mmx5QTJ3YThPK1ZjSFFkUEF1RE10QS9oc2xRTDhwR1dSWkVvUEZiK0cralNTQ0ovbFBzaUhQRzBKazU4Mm5wemRxVkVCOUUwL2pZZk1oQzcwOFV1dExxZEI1b25rQ3VCM1hpdncrTXBqM1ZnN1crN3IzdWxFNXRLMnh2QTM1azFGUUZQT29WVEdi');
+        };
     </script>
+</body>
+</html>
