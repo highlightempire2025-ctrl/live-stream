@@ -9,8 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     
     <style>
+        /* CSS Variables for easy color changes */
         :root {
-            --accent-color: #a349a4;
+            --accent-color: #a349a4; /* Purple Accent */
             --bg-dark: #080808;
             --card-bg: #121212;
             --btn-grad: linear-gradient(145deg, #a349a4, #7d2d7d);
@@ -27,12 +28,14 @@
             min-height: 100vh;
         }
 
+        /* Top Navigation Bar */
         .navbar {
             width: 100%;
             background: rgba(18, 18, 18, 0.95);
             padding: 20px 0;
             text-align: center;
             border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 4px 20px rgba(163, 73, 164, 0.2);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -48,6 +51,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Adsterra Floating Button */
         .promo-btn {
             margin: 25px 0;
             background: #ff4757;
@@ -56,6 +60,8 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
             animation: pulse 2s infinite;
             display: inline-block;
         }
@@ -66,6 +72,7 @@
             100% { transform: scale(1); }
         }
 
+        /* Player Container */
         .player-frame {
             width: 95%;
             max-width: 950px;
@@ -73,6 +80,7 @@
             border-radius: 15px;
             overflow: hidden;
             border: 1px solid #222;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
 
         #player {
@@ -80,6 +88,7 @@
             aspect-ratio: 16 / 9;
         }
 
+        /* Professional Server Buttons */
         .server-section {
             margin: 30px 0;
             display: flex;
@@ -94,7 +103,9 @@
             border: 1px solid #333;
             padding: 12px 28px;
             border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -103,40 +114,60 @@
         .btn-server:hover {
             border-color: var(--accent-color);
             background: var(--btn-grad);
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-3px);
         }
 
-        .channels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
+        /* Channel List Styling */
+        .channels-container {
             width: 95%;
             max-width: 950px;
-            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
         }
 
         .channel-card {
             background: var(--card-bg);
             border: 1px solid #222;
-            border-radius: 10px;
             padding: 15px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
             text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
         .channel-card:hover {
             border-color: var(--accent-color);
+            background: #1a1a1a;
             transform: translateY(-5px);
         }
 
         .channel-card img {
-            width: 45px;
-            margin-bottom: 10px;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
-        .dot { height: 8px; width: 8px; background-color: #2ed573; border-radius: 50%; }
+        .channel-card span {
+            font-size: 13px;
+            font-weight: 500;
+        }
 
-        .footer { padding: 40px 0; color: #555; font-size: 12px; }
+        .dot { height: 8px; width: 8px; background-color: #2ed573; border-radius: 50%; display: inline-block; }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            color: #555;
+            font-size: 12px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -145,64 +176,96 @@
         <h1>✪ PREMIUM HD STREAM ✪</h1>
     </div>
 
-    <a href="#" class="promo-btn">▶ UNLOCK ULTRA HD PLAYER ◀</a>
+    <a href="#" target="_blank" class="promo-btn">▶ UNLOCK ULTRA HD PLAYER ◀</a>
 
     <div class="player-frame">
         <div id="player"></div>
     </div>
 
     <div class="server-section">
-        <button class="btn-server" onclick="loadSource('http://45.12.32.11:8080/LSMALLS/IjZ4B8qKet/9406?token=TEdQABJaFQ5DAQFWAFBbDAcFBVsJAABTUAJaAQQFVVNTXAFRVwpUDVNHHENFQBBRAlpoCl0UXFUEWAsHVUpEF0QASj4IVhUOQ1IHUAQHQBhBQ14OXBRcVQNXDwBQVVVTAUkaEQhWFQ5DVgJSBw1AGEFSTxdcRAgFWD5cURAPBQcVX1YUDV4bFg4LbwVTWQNaBxUNQQgUSkZdEkgWXEQpEkMMVRQMEmNRDQBTDlsUI1gEUkUKWBYrBV0PTFUPCAMQFUkaAwhGRVUVABJbFANXDFYVG0FaWRMKQBNBFlxEIjgVSRoEGUZSWhIMXw8UDkBAEBUbQVBFORZREkxGAwcLB0VHAkNREBsWDARIPlVbDFoGVEMKVlgVRg5DChZKRAsNWQxMDhNtR10FRwpDBwxbBVcVSg==')">
-            <span class="dot"></span> SERVER 1
+        <button class="btn-server" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9406.m3u8')">
+            <span class="dot"></span> SERVER 1 (AUTO)
+        </button>
+        <button class="btn-server" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9569.m3u8')">
+            <span class="dot" style="background-color: #ffa500;"></span> SERVER 2 (BACKUP)
         </button>
     </div>
 
-    <h2 style="color: var(--accent-color); font-size: 1.1rem;">📺 CHANNELS LIST</h2>
+    <h2 style="color: var(--accent-color); margin-bottom: 20px; font-size: 1.2rem;">SELECT CHANNEL</h2>
 
-    <div class="channels-grid" id="channels">
-        <script>
-            const token = "?token=TEdQABJaFQ5DAQFWAFBbDAcFBVsJAABTUAJaAQQFVVNTXAFRVwpUDVNHHENFQBBRAlpoCl0UXFUEWAsHVUpEF0QASj4IVhUOQ1IHUAQHQBhBQ14OXBRcVQNXDwBQVVVTAUkaEQhWFQ5DVgJSBw1AGEFSTxdcRAgFWD5cURAPBQcVX1YUDV4bFg4LbwVTWQNaBxUNQQgUSkZdEkgWXEQpEkMMVRQMEmNRDQBTDlsUI1gEUkUKWBYrBV0PTFUPCAMQFUkaAwhGRVUVABJbFANXDFYVG0FaWRMKQBNBFlxEIjgVSRoEGUZSWhIMXw8UDkBAEBUbQVBFORZREkxGAwcLB0VHAkNREBsWDARIPlVbDFoGVEMKVlgVRg5DChZKRAsNWQxMDhNtR10FRwpDBwxbBVcVSg==";
-            const baseUrl = "http://45.12.32.11:8080/LSMALLS/IjZ4B8qKet/";
-            
-            const channels = [
-                {n: "Bein sports EN", id: "9406"},
-                {n: "Espn", id: "9569"},
-                {n: "Espn 2", id: "9568"},
-                {n: "Espn Deportes", id: "47478"},
-                {n: "Espn U", id: "9561"},
-                {n: "MSG", id: "59686"},
-                {n: "MSG+", id: "59687"},
-                {n: "NBA TV", id: "9547"},
-                {n: "NHL Network", id: "9549"},
-                {n: "TSN 1", id: "9512"},
-                {n: "NBA TV Alt", id: "101962"},
-                {n: "NFL NETWORK", id: "105564"},
-                {n: "DAZN 1", id: "111261"},
-                {n: "Sky Sport Main", id: "100770"}
-            ];
-
-            channels.forEach(ch => {
-                document.write(`
-                    <div class="channel-card" onclick="loadSource('${baseUrl}${ch.id}${token}')">
-                        <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png">
-                        <br><span>${ch.n}</span>
-                    </div>
-                `);
-            });
-        </script>
+    <div class="channels-container">
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9406.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="icon">
+            <span>Bein sports EN</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9569.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="icon">
+            <span>Espn</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9568.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="icon">
+            <span>Espn 2</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/47478.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="icon">
+            <span>Espn Deportes</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9561.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="icon">
+            <span>Espn U</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/59686.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3583/3583396.png" alt="icon">
+            <span>MSG</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/59687.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3583/3583396.png" alt="icon">
+            <span>MSG+</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9547.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889158.png" alt="icon">
+            <span>NBA TV</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9549.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/93/93166.png" alt="icon">
+            <span>NHL Network</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9512.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="icon">
+            <span>TSN 1</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/101962.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889158.png" alt="icon">
+            <span>NBA TV Alt</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/105564.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889240.png" alt="icon">
+            <span>NFL NETWORK</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/111261.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="icon">
+            <span>DAZN 1</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/100770.m3u8')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="icon">
+            <span>Sky Sport Main</span>
+        </div>
     </div>
 
     <div class="footer">
-        <p>© 2026 Live Sports Experience.</p>
+        <p>If the stream freezes, try switching servers or refresh the browser.</p>
+        <p>© 2026 Live Sports Experience. All rights reserved.</p>
     </div>
 
     <script>
+        // Setup Clappr Player
         var player = new Clappr.Player({
-            source: 'http://45.12.32.11:8080/LSMALLS/IjZ4B8qKet/109333' + token,
+            source: 'http://live.velocity.watch:8080/live/LSMALLS/IjZ4B8qKet/9406.m3u8',
             parentId: '#player',
             width: '100%',
             height: '100%',
             autoPlay: false,
+            mimeType: 'application/x-mpegURL',
             mediacontrol: {seekbar: "#a349a4", buttons: "#fff"}
         });
 
@@ -212,4 +275,5 @@
         }
     </script>
 </body>
-</html>
+                </html>
+            
