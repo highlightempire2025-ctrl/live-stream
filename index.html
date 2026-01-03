@@ -1,35 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMART LIVE TV | PRO PLAYER</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video-js.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video.min.js"></script>
+    <title>SlamSports - بث مباشر المحترفين</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        body { margin: 0; background: #000; font-family: sans-serif; overflow: hidden; }
-        .vjs-matrix.video-js { color: #00ff00; }
-        .header { position: absolute; top: 0; width: 100%; background: rgba(0,0,0,0.7); color: white; padding: 15px; z-index: 10; border-bottom: 2px solid #ff0000; }
-        #my-video { width: 100vw; height: 100vh; }
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
+        header { text-align: center; padding: 20px; background: #1e293b; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .main-container { max-width: 1000px; margin: auto; }
+        .player-section { background: #000; border-radius: 10px; overflow: hidden; border: 2px solid #ef4444; margin-bottom: 20px; }
+        .controls-section { background: #1e293b; padding: 20px; border-radius: 15px; }
+        .group-title { color: #ef4444; margin-top: 15px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        select { width: 100%; padding: 12px; border-radius: 8px; background: #334155; color: white; border: 1px solid #475569; font-size: 16px; margin-bottom: 15px; cursor: pointer; }
+        .status-bar { font-size: 14px; color: #94a3b8; text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <strong>LIVE NETWORK</strong> | Status: <span style="color:#4ade80">Connected ✅</span>
+<div class="main-container">
+    <header>
+        <h1>🏆 SlamSports Live</h1>
+        <p>بث مباشر الدوريات الأمريكية والأوروبية</p>
+    </header>
+
+    <div class="player-section">
+        <video id="main-player" class="video-js vjs-fluid vjs-big-play-centered" controls preload="auto">
+            <source src="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/101962" type="video/mp2t">
+        </video>
     </div>
 
-    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup="{}">
-        <source src="http://live.velocity.watch:8080/get.php?username=LSMALLS&password=IjZ4B8qKet&type=m3u_plus&output=ts" type="application/x-mpegURL">
-        <p class="vjs-no-js">To view this video please enable JavaScript.</p>
-    </video>
+    <div class="controls-section">
+        <label>اختر الدوري والقناة:</label>
+        <select id="channel-list" onchange="playChannel()">
+            <optgroup label="🏀 NBA - دوري السلة">
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/101962">NBA TV USA</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118475">Atlanta Hawks</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118488">Los Angeles Lakers</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118484">Golden State Warriors</option>
+            </optgroup>
+            
+            <optgroup label="🏈 NFL - كرة القدم الأمريكية">
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/73628">NFL Network</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/73629">NFL Red Zone</option>
+            </optgroup>
 
-    <script>
-        // هذا الكود يضمن تشغيل البث تلقائياً وبأعلى جودة
-        var player = videojs('my-video');
-        player.ready(function() {
-            player.play();
-        });
-    </script>
+            <optgroup label="🏒 NHL - هوكي الجليد">
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/95681">NHL Network</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109333">NHL 01</option>
+            </optgroup>
+
+            <optgroup label="⚽ UEFA - دوري أبطال أوروبا">
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118176">UEFA 01</option>
+                <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118177">UEFA 02</option>
+            </optgroup>
+        </select>
+        <div class="status-bar">نظام الحماية من التقطيع (40 ثانية Buffer) مُفعل تلقائياً</div>
+    </div>
+</div>
+
+<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+<script>
+    // إعداد المشغل مع خاصية الـ Buffer العالية لضمان الثبات
+    var player = videojs('main-player', {
+        html5: {
+            vhs: {
+                goalBufferLength: 40, // يحمل 40 ثانية مسبقاً قبل العرض
+                maxBufferLength: 90,
+                enableLowLatency: false
+            }
+        }
+    });
+
+    function playChannel() {
+        var select = document.getElementById("channel-list");
+        var url = select.value;
+        player.src({ type: 'video/mp2t', src: url });
+        player.play();
+    }
+</script>
+
 </body>
 </html>
