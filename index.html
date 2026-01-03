@@ -2,245 +2,279 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Sports Stream</title>
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <title>Ultimate Live Streaming | HD</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    
     <style>
-        body { background-color: #121212; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 900px; margin: 0 auto; }
-        h3 { color: #e50914; margin-bottom: 20px; }
-        select { width: 100%; padding: 15px; margin-bottom: 20px; background: #333; color: white; border: 2px solid #e50914; border-radius: 5px; font-size: 16px; cursor: pointer; outline: none; }
-        select:hover { background: #444; }
-        .video-js { width: 100%; height: auto; aspect-ratio: 16/9; border: 2px solid #e50914; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(229, 9, 20, 0.3); }
+        /* CSS Variables for easy color changes */
+        :root {
+            --accent-color: #a349a4; /* Purple Accent */
+            --bg-dark: #080808;
+            --card-bg: #121212;
+            --btn-grad: linear-gradient(145deg, #a349a4, #7d2d7d);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            width: 100%;
+            background: rgba(18, 18, 18, 0.95);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 4px 20px rgba(163, 73, 164, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Adsterra Floating Button */
+        .promo-btn {
+            margin: 25px 0;
+            background: #ff4757;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
+            animation: pulse 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Player Container */
+        .player-frame {
+            width: 95%;
+            max-width: 950px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #222;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        #player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Professional Server Buttons */
+        .server-section {
+            margin: 30px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-server {
+            background: var(--card-bg);
+            color: white;
+            border: 1px solid #333;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-server:hover {
+            border-color: var(--accent-color);
+            background: var(--btn-grad);
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* CHANNELS SECTION START */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            width: 95%;
+            max-width: 950px;
+            margin-bottom: 40px;
+        }
+
+        .channel-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+        }
+
+        .channel-card img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+
+        .channel-card span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        /* CHANNELS SECTION END */
+
+        .dot { height: 8px; width: 8px; background-color: #2ed573; border-radius: 50%; display: inline-block; }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            color: #555;
+            font-size: 12px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h3>🔥 Select Channel to Watch</h3>
-    
-    <select id="channelSelect" onchange="playChannel()">
-        <option value="">-- Select Channel --</option>
+    <div class="navbar">
+        <h1>✪ PREMIUM HD STREAM ✪</h1>
+    </div>
 
-        <optgroup label="🏀 NBA Teams">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118475">Atlanta Hawks</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118476">Boston Celtics</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118477">Brooklyn Nets</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118478">Charlotte Hornets</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118479">Chicago Bulls</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118480">Cleveland Cavaliers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118481">Dallas Mavericks</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118482">Denver Nuggets</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118483">Detroit Pistons</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118484">Golden State Warriors</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118485">Houston Rockets</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118486">Indiana Pacers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118487">LA Clippers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118488">LA Lakers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118489">Memphis Grizzlies</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118490">Miami Heat</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118491">Milwaukee Bucks</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118492">Minnesota Timberwolves</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118493">New Orleans Pelicans</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118494">New York Knicks</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118495">Oklahoma City Thunder</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118496">Orlando Magic</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118497">Philadelphia 76ers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118498">Phoenix Suns</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118499">Portland Trail Blazers</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118500">Sacramento Kings</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118501">San Antonio Spurs</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118502">Toronto Raptors</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118503">Utah Jazz</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118504">Washington Wizards</option>
-        </optgroup>
+    <a href="#" target="_blank" class="promo-btn">▶ UNLOCK ULTRA HD PLAYER ◀</a>
 
-        <optgroup label="🏀 NBA League Pass">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/101962">NBA TV USA</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109176">NBA Channels Guide</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110615">NBA 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110616">NBA 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110617">NBA 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110618">NBA 04</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110619">NBA 05</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110620">NBA 06</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110621">NBA 07</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110622">NBA 08</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110623">NBA 09</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110624">NBA 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110625">NBA 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110626">NBA 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110627">NBA 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110628">NBA 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/110629">NBA 15</option>
-        </optgroup>
+    <div class="player-frame">
+        <div id="player"></div>
+    </div>
 
-        <optgroup label="🏈 NFL (American Football)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/73628">NFL Network</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/73629">NFL Red Zone</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/105564">NFL Network SD</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120178">NFL 1</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120179">NFL 2</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120180">NFL 3</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120181">NFL 4</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120182">NFL 5</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120183">NFL 6</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120184">NFL 7</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120185">NFL 8</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120186">NFL 9</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120187">NFL 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120188">NFL 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120189">NFL 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120190">NFL 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120191">NFL 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120192">NFL 15</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/120177">NFL 16</option>
-        </optgroup>
+    <div class="server-section">
+        <button class="btn-server" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9406')">
+            <span class="dot"></span> SERVER 1 (AUTO)
+        </button>
+        <button class="btn-server" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9569')">
+            <span class="dot" style="background-color: #ffa500;"></span> SERVER 2 (BACKUP)
+        </button>
+    </div>
 
-        <optgroup label="🏒 NHL (Ice Hockey)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/95681">NHL Network</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109333">NHL 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109334">NHL 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109335">NHL 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109336">NHL 04</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109337">NHL 05</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109338">NHL 06</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109339">NHL 07</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109340">NHL 08</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109341">NHL 09</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109342">NHL 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109343">NHL 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109344">NHL 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109345">NHL 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109346">NHL 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/109347">NHL 15</option>
-        </optgroup>
+    <h2 style="color: var(--accent-color); font-size: 1.2rem; margin-bottom: 20px;">📺 CHANNELS LIST</h2>
 
-        <optgroup label="⚾ MLB (Baseball)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/100103">MLB NETWORK</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/100104">MLB STRIKE ZONE</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108466">MLB 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108467">MLB 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108468">MLB 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108469">MLB 04</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108470">MLB 05</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108471">MLB 06</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108472">MLB 07</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108473">MLB 08</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108474">MLB 09</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108475">MLB 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108476">MLB 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108477">MLB 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108478">MLB 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108479">MLB 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108480">MLB 15</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108514">MLB 16</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108515">MLB 17</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/108580">MLB 18</option>
-        </optgroup>
+    <div class="channels-grid">
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9406')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="Bein">
+            <span>Bein sports EN</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9569')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="ESPN">
+            <span>ESPN</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9568')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="ESPN2">
+            <span>ESPN 2</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/47478')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="ESPND">
+            <span>ESPN Deportes</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9561')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="ESPNU">
+            <span>ESPN U</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/59686')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3583/3583396.png" alt="MSG">
+            <span>MSG</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/59687')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3583/3583396.png" alt="MSG+">
+            <span>MSG+</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9547')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889158.png" alt="NBA">
+            <span>NBA TV</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9549')">
+            <img src="https://cdn-icons-png.flaticon.com/512/93/93166.png" alt="NHL">
+            <span>NHL Network</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9512')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="TSN1">
+            <span>TSN 1</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/101962')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889158.png" alt="NBA2">
+            <span>NBA TV (Alt)</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/105564')">
+            <img src="https://cdn-icons-png.flaticon.com/512/889/889240.png" alt="NFL">
+            <span>NFL NETWORK</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/111261')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="DAZN">
+            <span>DAZN 1</span>
+        </div>
+        <div class="channel-card" onclick="loadSource('http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/100770')">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732245.png" alt="SKY">
+            <span>Sky Sport Main</span>
+        </div>
+    </div>
 
-        <optgroup label="⚽ MLS (Major League Soccer)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117471">MLS Channel Listings</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117472">MLS 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117473">MLS 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117474">MLS 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117475">MLS 04</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117476">MLS 05</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117477">MLS 06</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117478">MLS 07</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117479">MLS 08</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117480">MLS 09</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117481">MLS 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117482">MLS 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117483">MLS 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117484">MLS 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117485">MLS 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117486">MLS 15</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117487">MLS 16</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117488">MLS 17</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117489">MLS 18</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117490">MLS 19</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/117491">MLS 20</option>
-        </optgroup>
+    <div class="footer">
+        <p>If the stream freezes, try switching servers or refresh the browser.</p>
+        <p>© 2026 Live Sports Experience. All rights reserved.</p>
+    </div>
 
-        <optgroup label="⚽ UEFA (Champions/Europe)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118175">UEFA Listings</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118176">UEFA 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118177">UEFA 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118178">UEFA 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118179">UEFA 04</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118180">UEFA 05</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118181">UEFA 06</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118182">UEFA 07</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118183">UEFA 08</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118184">UEFA 09</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118185">UEFA 10</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118186">UEFA 11</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118187">UEFA 12</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118188">UEFA 13</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118189">UEFA 14</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118190">UEFA 15</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118191">UEFA 16</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118192">UEFA 17</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118193">UEFA 18</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118194">UEFA 19</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118195">UEFA 20</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118449">UEFA 21</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118450">UEFA 22</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118451">UEFA 23</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118452">UEFA 24</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118453">UEFA 25</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118454">UEFA 26</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118455">UEFA 27</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118456">UEFA 28</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118457">UEFA 29</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118458">UEFA 30</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118459">UEFA 31</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118460">UEFA 32</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/131977">UEFA 33</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/131978">UEFA 34</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/131979">UEFA 35</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/131980">UEFA 36</option>
-        </optgroup>
-        
-        <optgroup label="⚽ SPFL (Scottish Football)">
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118162">SPFL Listings</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118163">SPFL 01</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118164">SPFL 02</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118165">SPFL 03</option>
-            <option value="http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/118166">SPFL 04</option>
-        </optgroup>
+    <script>
+        // Setup Clappr Player
+        var player = new Clappr.Player({
+            source: 'http://live.velocity.watch:8080/LSMALLS/IjZ4B8qKet/9406',
+            parentId: '#player',
+            width: '100%',
+            height: '100%',
+            autoPlay: false,
+            mimeType: 'application/x-mpegURL',
+            mediacontrol: {seekbar: "#a349a4", buttons: "#fff"}
+        });
 
-    </select>
-
-    <video id="my-video" class="video-js vjs-fluid vjs-big-play-centered" controls preload="auto">
-        <source src="" type="video/mp2t">
-        <p class="vjs-no-js">Please enable JavaScript to view this video.</p>
-    </video>
-</div>
-
-<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-<script>
-    var player = videojs('my-video', {
-        html5: {
-            vhs: {
-                // Buffer settings to reduce buffering/lag
-                goalBufferLength: 30,
-                maxBufferLength: 60,
-                enableLowLatency: false
-            }
-        }
-    });
-
-    function playChannel() {
-        var select = document.getElementById("channelSelect");
-        var url = select.value;
-        if (url) {
-            player.src({ type: "video/mp2t", src: url });
+        function loadSource(url) {
+            player.load(url);
             player.play();
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
