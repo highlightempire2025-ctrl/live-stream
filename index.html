@@ -1,97 +1,43 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البث المباشر الحصري</title>
+    <title>Live Stream</title>
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
-        /* سكين (Skin) ديناميكي يتغير حسب المباراة */
-        :root { --primary-color: #e91916; } /* لون افتراضي لنوتنجهام */
-        body { background: #0b0e14; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        .header { background: var(--primary-color); padding: 15px; text-align: center; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: 0.5s; }
-        .player-wrapper { max-width: 1000px; margin: 20px auto; border: 2px solid #222; border-radius: 15px; overflow: hidden; position: relative; }
-        #player { width: 100%; aspect-ratio: 16 / 9; background: #000; }
-        .server-tabs { display: flex; justify-content: center; background: #1a1f26; padding: 10px; }
-        .tab { 
-            padding: 15px 25px; cursor: pointer; border: 1px solid #333; margin: 0 5px; border-radius: 8px;
-            background: #252b35; transition: 0.3s; font-size: 14px; text-align: center;
-        }
-        .tab.active { background: var(--primary-color); border-color: #fff; font-weight: bold; }
-        .match-info { padding: 15px; text-align: center; font-size: 18px; }
-        .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; display: inline-block; margin-left: 10px; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        body { background-color: #000; color: #fff; text-align: center; font-family: sans-serif; }
+        #player { width: 100%; height: 500px; background: #000; }
+        .btn-container { margin-top: 20px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #222; color: #fff; border: 1px solid #444; }
+        button.active { background: #ff0000; }
     </style>
 </head>
 <body>
 
-<div class="header" id="main-header">
-    <span class="live-dot"></span> بث مباشر: <span id="match-name-header">Nottingham vs Aston Villa</span>
-</div>
+    <h2>بث مباشر للمباريات</h2>
 
-<div class="player-wrapper">
     <div id="player"></div>
-</div>
 
-<div class="server-tabs">
-    <div class="tab active" id="tab1" onclick="loadMatch(1)">
-        <b>Server 1</b><br>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Nottingham vs Aston Villa
-    </div>
-    <div class="tab" id="tab2" onclick="loadMatch(2)">
-        <b>Server 2</b><br>🇮🇹 Como vs Udinese
-    </div>
-</div>
-
-<div class="match-info">
-    جودة البث: <span style="color: #4ade80;">4K / Ultra HD</span> | السيرفر: <span id="server-status">أساسي</span>
-</div>
-
-<script>
-    // البيانات الخاصة بالمباريات والروابط التي أرسلتها
-    const matches = {
-        1: {
-            name: "Nottingham vs Aston Villa",
-            url: "https://edg00.smytdryt.live/2011979217_channel2_hd/playlist.m3u8?match_id=13795653&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767443870&key=VTJGc2RHVmtYMTlibEN3c2E2OG51TldJbk9RZ2RmUkFjL0hyMnRVM1ZFRmt2YVdwa3EzbjBSVDZlS2FIdWRPL2EzUWZ1TTQ0RzVONWlTN1EyclNOTC9GNmVVOC81c0Z4Q29HUlRWaUh0b2xaVWFSK3d3UWQvb3RYVEU4K3IzemdYL3dZdmlWN1FEN3orZE5Kbyt4KzdJWEljWDBuTUZUYmhoVG01bW02SnMrQXAxNmYrRTBBcXZTRnh4MHlLcHdX",
-            color: "#e91916" // اللون الأحمر لنوتنجهام
-        },
-        2: {
-            name: "Como vs Udinese",
-            url: "https://edg00.smytdryt.live/1112248270_channel2_hd/playlist.m3u8?match_id=13795709&s_id=1&t_id=4&stats=statsgoogstreams.com&timestamp=1767443935&key=VTJGc2RHVmtYMTk3RXZvbnJyMm95bFJiREszdjBPc0wwZnQzWCsxdjN3Q2xqZ1poU1V4MmhvZEgvL2xocEtpR3VCZlQ0QnhUQlM3WVl4aDVIMVJKZkNpVGxIYmpBNlFPaXpneURXNkdrTVhuSXFnU21yenhtNVhCc0ZOVS9HWEdxb0tMdTk0bmVSLzZBK2ROcWJudUFqUkZIQU1qbnNpbklLRmh2ZVBwUXJrRUc2SnBFSkY5VnFlRHR5TWtYT0RY",
-            color: "#005ca9" // اللون الأزرق لكومو
-        }
-    };
-
-    var player = new Clappr.Player({
-        source: matches[1].url,
-        parentId: "#player",
-        width: '100%',
-        height: '100%',
-        autoPlay: true,
-        plugins: {
-            container: [Clappr.ContextMenuItem]
-        },
-        mediacontrol: {seekbar: "#e91916", buttons: "#fff"}
-    });
-
-    function loadMatch(id) {
-        const match = matches[id];
+    <div class="btn-container">
+        <button onclick="changeServer('https://edg00.smytdryt.live/2011979217_channel2_hd/playlist.m3u8?match_id=13795653&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767443870&key=VTJGc2RHVmtYMTlibEN3c2E2OG51TldJbk9RZ2RmUkFjL0hyMnRVM1ZFRmt2YVdwa3EzbjBSVDZlS2FIdWRPL2EzUWZ1TTQ0RzVONWlTN1EyclNOTC9GNmVVOC81c0Z4Q29HUlRWaUh0b2xaVWFSK3d3UWQvb3RYVEU4K3IzemdYL3dZdmlWN1FEN3orZE5Kbyt4KzdJWEljWDBuTUZUYmhoVG01bW02SnMrQXAxNmYrRTBBcXZTRnh4MHlLcHdX')">Server 1: Nottingham vs Aston Villa</button>
         
-        // تغيير الرابط
-        player.load(match.url);
-        player.play();
+        <button onclick="changeServer('https://edg00.smytdryt.live/1112248270_channel2_hd/playlist.m3u8?match_id=13795709&s_id=1&t_id=4&stats=statsgoogstreams.com&timestamp=1767443935&key=VTJGc2RHVmtYMTk3RXZvbnJyMm95bFJiREszdjBPc0wwZnQzWCsxdjN3Q2xqZ1poU1V4MmhvZEgvL2xocEtpR3VCZlQ0QnhUQlM3WVl4aDVIMVJKZkNpVGxIYmpBNlFPaXpneURXNkdrTVhuSXFnU21yenhtNVhCc0ZOVS9HWEdxb0tMdTk0bmVSLzZBK2ROcWJudUFqUkZIQU1qbnNpbklLRmh2ZVBwUXJrRUc2SnBFSkY5VnFlRHR5TWtYT0RY')">Server 2: Como vs Udinese</button>
+    </div>
 
-        // تغيير السكين (الألوان والأسماء)
-        document.getElementById('match-name-header').innerText = match.name;
-        document.getElementById('main-header').style.background = match.color;
-        document.documentElement.style.setProperty('--primary-color', match.color);
+    <script>
+        var player = new Clappr.Player({
+            source: "https://edg00.smytdryt.live/2011979217_channel2_hd/playlist.m3u8?match_id=13795653&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767443870&key=VTJGc2RHVmtYMTlibEN3c2E2OG51TldJbk9RZ2RmUkFjL0hyMnRVM1ZFRmt2YVdwa3EzbjBSVDZlS2FIdWRPL2EzUWZ1TTQ0RzVONWlTN1EyclNOTC9GNmVVOC81c0Z4Q29HUlRWaUh0b2xaVWFSK3d3UWQvb3RYVEU4K3IzemdYL3dZdmlWN1FEN3orZE5Kbyt4KzdJWEljWDBuTUZUYmhoVG01bW02SnMrQXAxNmYrRTBBcXZTRnh4MHlLcHdX",
+            parentId: "#player",
+            width: "100%",
+            height: "100%",
+            autoPlay: true
+        });
 
-        // تحديث الأزرار
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById('tab' + id).classList.add('active');
-
-        // الحيلة الربحية: فتح إعلان Adsterra في نافذة جديدة عند التبديل
-        // window.open('رابط_إعلانك_هنا', '_blank');
-    }
-</script>
+        function changeServer(url) {
+            player.load(url);
+            player.play();
+        }
+    </script>
 </body>
 </html>
