@@ -1,236 +1,35 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>بث مباشر للمباريات</title>
-    <style>
-        body { margin: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; }
-        .player-container { width: 100%; max-width: 900px; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
-        iframe { width: 100%; aspect-ratio: 16/9; border: none; }
-        .footer { text-align: center; padding: 10px; background: #111; }
-    </style>
-</head>
-<body>
-    <div class="player-container">
-        <iframe src="https://thesports.to/embed/bein1.php" allowfullscreen="true" scrolling="no"></iframe>
-        <div class="footer">قناة beIN Sports 1 HD - بث مباشر</div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>بث مباشر للمباريات</title>
-    <style>
-        body { margin: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; }
-        .player-container { width: 100%; max-width: 900px; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
-        iframe { width: 100%; aspect-ratio: 16/9; border: none; }
-        .footer { text-align: center; padding: 10px; background: #111; }
-    </style>
-</head>
-<body>
-    <div class="player-container">
-        <iframe src="https://thesports.to/embed/bein1.php" allowfullscreen="true" scrolling="no"></iframe>
-        <div class="footer">قناة beIN Sports 1 HD - بث مباشر</div>
-    </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>بث مباشر للمباريات</title>
-    <style>
-        body { margin: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; }
-        .player-container { width: 100%; max-width: 900px; border: 2px solid #ff0000; border-radius: 10px; overflow: hidden; }
-        iframe { width: 100%; aspect-ratio: 16/9; border: none; }
-        .footer { text-align: center; padding: 10px; background: #111; }
-    </style>
-</head>
-<body>
-    <div class="player-container">
-        <iframe src="https://thesports.to/embed/bein1.php" allowfullscreen="true" scrolling="no"></iframe>
-        <div class="footer">قناة beIN Sports 1 HD - بث مباشر</div>
-    </div>
-</body>
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE SPORTS NETWORK | LIVE HD</title>
-    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <title>SMART LIVE TV | PRO PLAYER</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video-js.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video.min.js"></script>
     <style>
-        :root {
-            --espn-red: #ff0000;
-            --nba-blue: #1d428a;
-            --bg-main: #06080a;
-            --card-dark: #12161c;
-            --text-white: #ffffff;
-            --text-gray: #94a3b8;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-white);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Top Header Bar */
-        .top-nav {
-            background: #000;
-            height: 65px;
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            border-bottom: 4px solid var(--espn-red);
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.9);
-        }
-
-        .brand { font-size: 26px; font-weight: 800; letter-spacing: -1px; text-transform: uppercase; }
-        .brand span { color: var(--espn-red); }
-
-        .live-badge {
-            background: var(--espn-red);
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            animation: flash 1.5s infinite;
-        }
-
-        @keyframes flash {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* Content Layout */
-        .content-wrapper {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 25px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Player Container */
-        .player-box {
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border: 1px solid #222;
-        }
-
-        #main-player { width: 100%; aspect-ratio: 16/9; }
-
-        /* Sidebar Info */
-        .info-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .status-card {
-            background: var(--card-dark);
-            padding: 25px;
-            border-radius: 12px;
-            border-top: 4px solid var(--espn-red);
-        }
-
-        .match-label { font-size: 12px; font-weight: bold; color: var(--text-gray); text-transform: uppercase; margin-bottom: 10px; }
-        .match-name { font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
-        .quality-tag { color: #4ade80; font-size: 13px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
-
-        .support-box {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 14px;
-            color: #cbd5e1;
-            line-height: 1.5;
-        }
-
-        /* Footer Section */
-        .description-section {
-            grid-column: 1 / -1;
-            background: var(--card-dark);
-            padding: 30px;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 1050px) {
-            .content-wrapper { grid-template-columns: 1fr; }
-            .top-nav { padding: 0 20px; }
-        }
+        body { margin: 0; background: #000; font-family: sans-serif; overflow: hidden; }
+        .vjs-matrix.video-js { color: #00ff00; }
+        .header { position: absolute; top: 0; width: 100%; background: rgba(0,0,0,0.7); color: white; padding: 15px; z-index: 10; border-bottom: 2px solid #ff0000; }
+        #my-video { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
 
-    <header class="top-nav">
-        <div class="brand">ELITE<span>SPORTS</span></div>
-        <div class="live-badge">● LIVE STREAM</div>
-    </header>
+    <div class="header">
+        <strong>LIVE NETWORK</strong> | Status: <span style="color:#4ade80">Connected ✅</span>
+    </div>
 
-    <main class="content-wrapper">
-        <section class="player-box">
-            <div id="main-player"></div>
-        </section>
-
-        <aside class="info-sidebar">
-            <div class="status-card">
-                <div class="match-label">Current Broadcast</div>
-                <div class="match-name">Live Match HD Stream</div>
-                <div class="quality-tag">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    ENCRYPTED ULTRA HD 4K
-                </div>
-            </div>
-
-            <div class="support-box">
-                <strong style="color: #fff; display: block; margin-bottom: 5px;">STREAMING STATUS:</strong>
-                Our servers are currently optimized for 20k+ concurrent viewers. If you experience lag, please refresh the player or check your internet connection.
-            </div>
-        </aside>
-
-        <article class="description-section">
-            <h2 style="margin: 0 0 15px 0;">Professional Match Coverage</h2>
-            <p style="color: var(--text-gray); margin: 0; font-size: 16px;">
-                Welcome to the Elite Sports Network. This channel provides official high-definition coverage of today's major sporting events. 
-                Our player uses low-latency technology to ensure you stay ahead of the action with zero buffering.
-            </p>
-        </article>
-    </main>
+    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup="{}">
+        <source src="http://live.velocity.watch:8080/get.php?username=LSMALLS&password=IjZ4B8qKet&type=m3u_plus&output=ts" type="application/x-mpegURL">
+        <p class="vjs-no-js">To view this video please enable JavaScript.</p>
+    </video>
 
     <script>
-        // Professional Player Implementation using your specific link
-        var player = new Clappr.Player({
-            source: "https://edg00.smytdryt.live/1112248270_channel2_hd/playlist.m3u8?match_id=13795709&s_id=1&t_id=4&stats=statsgoogstreams.com&timestamp=1767445103&key=VTJGc2RHVmtYMTlsZW5KSzJQL2x2Q3gwRlZ5bVUzTXVERUJjYS9wc0M1VTJ0Wmc3U1BPTHFTYlZkZEtSZDRCdll3eGsyZEU1UWxuR0RPUXprSHJjUHJUUDVIN0lGQ2xMNnBGYi9zeE9IQndvNENLd3ZYWVZIZ0lrcHBNNTJPd0ptTmFKTGEzcWlaME83SUNKV0E0bEdhN0dIcnhJb2VaejFlakJieWQ3VStSSjd0S0NqOWNaeHpid1VqVjB5OVMw",
-            parentId: "#main-player",
-            width: '100%',
-            height: '100%',
-            autoPlay: true,
-            mute: false,
-            mediacontrol: {seekbar: "#ff0000", buttons: "#fff"},
-            actualLiveTime: true,
-            playback: {
-                hlsjsConfig: {
-                    enableWorker: true
-                }
-            }
+        // هذا الكود يضمن تشغيل البث تلقائياً وبأعلى جودة
+        var player = videojs('my-video');
+        player.ready(function() {
+            player.play();
         });
     </script>
 </body>
 </html>
-
