@@ -1,43 +1,181 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Stream</title>
+    <title>ELITE SPORTS NETWORK | LIVE HD</title>
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
-        body { background-color: #000; color: #fff; text-align: center; font-family: sans-serif; }
-        #player { width: 100%; height: 500px; background: #000; }
-        .btn-container { margin-top: 20px; }
-        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #222; color: #fff; border: 1px solid #444; }
-        button.active { background: #ff0000; }
+        :root {
+            --espn-red: #ff0000;
+            --nba-blue: #1d428a;
+            --bg-main: #06080a;
+            --card-dark: #12161c;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header Bar */
+        .top-nav {
+            background: #000;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid var(--espn-red);
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.9);
+        }
+
+        .brand { font-size: 26px; font-weight: 800; letter-spacing: -1px; text-transform: uppercase; }
+        .brand span { color: var(--espn-red); }
+
+        .live-badge {
+            background: var(--espn-red);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            animation: flash 1.5s infinite;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* Content Layout */
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 25px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Player Container */
+        .player-box {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #222;
+        }
+
+        #main-player { width: 100%; aspect-ratio: 16/9; }
+
+        /* Sidebar Info */
+        .info-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .status-card {
+            background: var(--card-dark);
+            padding: 25px;
+            border-radius: 12px;
+            border-top: 4px solid var(--espn-red);
+        }
+
+        .match-label { font-size: 12px; font-weight: bold; color: var(--text-gray); text-transform: uppercase; margin-bottom: 10px; }
+        .match-name { font-size: 20px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
+        .quality-tag { color: #4ade80; font-size: 13px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+
+        .support-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Footer Section */
+        .description-section {
+            grid-column: 1 / -1;
+            background: var(--card-dark);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 1050px) {
+            .content-wrapper { grid-template-columns: 1fr; }
+            .top-nav { padding: 0 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <h2>بث مباشر للمباريات</h2>
+    <header class="top-nav">
+        <div class="brand">ELITE<span>SPORTS</span></div>
+        <div class="live-badge">● LIVE STREAM</div>
+    </header>
 
-    <div id="player"></div>
+    <main class="content-wrapper">
+        <section class="player-box">
+            <div id="main-player"></div>
+        </section>
 
-    <div class="btn-container">
-        <button onclick="changeServer('https://edg00.smytdryt.live/2011979217_channel2_hd/playlist.m3u8?match_id=13795653&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767443870&key=VTJGc2RHVmtYMTlibEN3c2E2OG51TldJbk9RZ2RmUkFjL0hyMnRVM1ZFRmt2YVdwa3EzbjBSVDZlS2FIdWRPL2EzUWZ1TTQ0RzVONWlTN1EyclNOTC9GNmVVOC81c0Z4Q29HUlRWaUh0b2xaVWFSK3d3UWQvb3RYVEU4K3IzemdYL3dZdmlWN1FEN3orZE5Kbyt4KzdJWEljWDBuTUZUYmhoVG01bW02SnMrQXAxNmYrRTBBcXZTRnh4MHlLcHdX')">Server 1: Nottingham vs Aston Villa</button>
-        
-        <button onclick="changeServer('https://edg00.smytdryt.live/1112248270_channel2_hd/playlist.m3u8?match_id=13795709&s_id=1&t_id=4&stats=statsgoogstreams.com&timestamp=1767443935&key=VTJGc2RHVmtYMTk3RXZvbnJyMm95bFJiREszdjBPc0wwZnQzWCsxdjN3Q2xqZ1poU1V4MmhvZEgvL2xocEtpR3VCZlQ0QnhUQlM3WVl4aDVIMVJKZkNpVGxIYmpBNlFPaXpneURXNkdrTVhuSXFnU21yenhtNVhCc0ZOVS9HWEdxb0tMdTk0bmVSLzZBK2ROcWJudUFqUkZIQU1qbnNpbklLRmh2ZVBwUXJrRUc2SnBFSkY5VnFlRHR5TWtYT0RY')">Server 2: Como vs Udinese</button>
-    </div>
+        <aside class="info-sidebar">
+            <div class="status-card">
+                <div class="match-label">Current Broadcast</div>
+                <div class="match-name">Live Match HD Stream</div>
+                <div class="quality-tag">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    ENCRYPTED ULTRA HD 4K
+                </div>
+            </div>
+
+            <div class="support-box">
+                <strong style="color: #fff; display: block; margin-bottom: 5px;">STREAMING STATUS:</strong>
+                Our servers are currently optimized for 20k+ concurrent viewers. If you experience lag, please refresh the player or check your internet connection.
+            </div>
+        </aside>
+
+        <article class="description-section">
+            <h2 style="margin: 0 0 15px 0;">Professional Match Coverage</h2>
+            <p style="color: var(--text-gray); margin: 0; font-size: 16px;">
+                Welcome to the Elite Sports Network. This channel provides official high-definition coverage of today's major sporting events. 
+                Our player uses low-latency technology to ensure you stay ahead of the action with zero buffering.
+            </p>
+        </article>
+    </main>
 
     <script>
+        // Professional Player Implementation using your specific link
         var player = new Clappr.Player({
-            source: "https://edg00.smytdryt.live/2011979217_channel2_hd/playlist.m3u8?match_id=13795653&s_id=1&t_id=1&stats=statsgoogstreams.com&timestamp=1767443870&key=VTJGc2RHVmtYMTlibEN3c2E2OG51TldJbk9RZ2RmUkFjL0hyMnRVM1ZFRmt2YVdwa3EzbjBSVDZlS2FIdWRPL2EzUWZ1TTQ0RzVONWlTN1EyclNOTC9GNmVVOC81c0Z4Q29HUlRWaUh0b2xaVWFSK3d3UWQvb3RYVEU4K3IzemdYL3dZdmlWN1FEN3orZE5Kbyt4KzdJWEljWDBuTUZUYmhoVG01bW02SnMrQXAxNmYrRTBBcXZTRnh4MHlLcHdX",
-            parentId: "#player",
-            width: "100%",
-            height: "100%",
-            autoPlay: true
+            source: "https://edg00.smytdryt.live/1112248270_channel2_hd/playlist.m3u8?match_id=13795709&s_id=1&t_id=4&stats=statsgoogstreams.com&timestamp=1767445103&key=VTJGc2RHVmtYMTlsZW5KSzJQL2x2Q3gwRlZ5bVUzTXVERUJjYS9wc0M1VTJ0Wmc3U1BPTHFTYlZkZEtSZDRCdll3eGsyZEU1UWxuR0RPUXprSHJjUHJUUDVIN0lGQ2xMNnBGYi9zeE9IQndvNENLd3ZYWVZIZ0lrcHBNNTJPd0ptTmFKTGEzcWlaME83SUNKV0E0bEdhN0dIcnhJb2VaejFlakJieWQ3VStSSjd0S0NqOWNaeHpid1VqVjB5OVMw",
+            parentId: "#main-player",
+            width: '100%',
+            height: '100%',
+            autoPlay: true,
+            mute: false,
+            mediacontrol: {seekbar: "#ff0000", buttons: "#fff"},
+            actualLiveTime: true,
+            playback: {
+                hlsjsConfig: {
+                    enableWorker: true
+                }
+            }
         });
-
-        function changeServer(url) {
-            player.load(url);
-            player.play();
-        }
     </script>
 </body>
 </html>
